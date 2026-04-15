@@ -1,144 +1,1046 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prem R Tawar | Portfolio</title>
-    <meta name="description" content="Portfolio of Prem R Tawar - Designer & Developer showcasing creative works and projects.">
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prem Tawar — Builder & Researcher</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #060810;
+    --bg2: #0c0f1a;
+    --bg3: #131726;
+    --accent: #38BFFF;
+    --accent2: #6E9EFF;
+    --accent-glow: rgba(56,191,255,0.15);
+    --text: #e8edf5;
+    --muted: #5a6480;
+    --border: #1a2035;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-body: 'JetBrains Mono', monospace;
+  }
+ 
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+ 
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.7;
+    cursor: none;
+    overflow-x: hidden;
+  }
+ 
+  /* Custom cursor */
+  .cursor {
+    position: fixed;
+    width: 12px; height: 12px;
+    background: var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s, background 0.2s;
+    mix-blend-mode: screen;
+    box-shadow: 0 0 16px var(--accent);
+  }
+  .cursor.hover { width: 40px; height: 40px; opacity: 0.6; }
+ 
+  /* Animated gradient background */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 40% at 10% 20%, rgba(56,191,255,0.04) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 50% at 90% 80%, rgba(110,158,255,0.05) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+ 
+  /* Noise overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+ 
+  /* Nav */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 4rem;
+    border-bottom: 1px solid var(--border);
+    background: rgba(6,8,16,0.88);
+    backdrop-filter: blur(16px);
+  }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    letter-spacing: 2px;
+    color: var(--accent);
+    text-decoration: none;
+    text-shadow: 0 0 20px rgba(56,191,255,0.5);
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .status-dot {
+    width: 8px; height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+    box-shadow: 0 0 8px var(--accent);
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.8); }
+  }
+ 
+  /* Hero */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 0 4rem;
+    padding-top: 100px;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+  }
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-right: 4rem;
+  }
+  .hero-tag {
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+  .hero-name {
+    font-family: var(--font-display);
+    font-size: clamp(4.5rem, 9vw, 8.5rem);
+    line-height: 0.9;
+    letter-spacing: 2px;
+    color: var(--text);
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s forwards;
+  }
+  .hero-name span { color: var(--accent); text-shadow: 0 0 30px rgba(56,191,255,0.4); }
+  .hero-bio {
+    font-size: 13px;
+    color: var(--muted);
+    max-width: 440px;
+    margin-bottom: 3rem;
+    line-height: 1.9;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.6s forwards;
+  }
+  .hero-bio strong { color: var(--text); font-weight: 500; }
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.8s forwards;
+  }
+  .btn {
+    display: inline-block;
+    padding: 14px 32px;
+    font-family: var(--font-body);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: all 0.25s;
+    cursor: none;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #000;
+    font-weight: 700;
+    box-shadow: 0 0 24px rgba(56,191,255,0.3);
+  }
+  .btn-primary:hover { background: #fff; transform: translateY(-2px); box-shadow: 0 0 32px rgba(56,191,255,0.5); }
+  .btn-secondary {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+ 
+  .hero-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    opacity: 0;
+    animation: fadeIn 1.2s 0.6s forwards;
+  }
+  .hero-visual {
+    position: relative;
+    width: 360px; height: 360px;
+  }
+  .hero-ring {
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgba(56,191,255,0.2);
+    border-radius: 50%;
+    animation: spin 20s linear infinite;
+  }
+  .hero-ring::before {
+    content: '';
+    position: absolute;
+    top: -4px; left: 50%;
+    width: 8px; height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 0 12px var(--accent);
+  }
+  .hero-ring-2 {
+    position: absolute;
+    inset: 30px;
+    border: 1px dashed rgba(110,158,255,0.15);
+    border-radius: 50%;
+    animation: spin 14s linear infinite reverse;
+  }
+  .hero-ring-2::before {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 50%;
+    width: 6px; height: 6px;
+    background: var(--accent2);
+    border-radius: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 0 8px var(--accent2);
+  }
+  .hero-center {
+    position: absolute;
+    inset: 60px;
+    background: var(--bg2);
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 3.5rem;
+    color: var(--accent);
+    letter-spacing: 3px;
+    box-shadow: inset 0 0 40px rgba(56,191,255,0.05), 0 0 40px rgba(56,191,255,0.05);
+  }
+  .hero-stats {
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 2px;
+    white-space: nowrap;
+  }
+  .stat {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    padding: 12px 20px;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    color: var(--accent);
+    line-height: 1;
+    letter-spacing: 2px;
+    text-shadow: 0 0 16px rgba(56,191,255,0.4);
+  }
+  .stat-label {
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+ 
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    animation: fadeIn 1s 1.5s both;
+  }
+  .scroll-line {
+    width: 40px; height: 1px;
+    background: var(--muted);
+  }
+ 
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+ 
+  /* Section base */
+  section { padding: 8rem 4rem; position: relative; z-index: 1; }
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+  .section-num {
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 3px;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    letter-spacing: 3px;
+    line-height: 1;
+  }
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    margin-left: 1rem;
+  }
+ 
+  /* About */
+  .about { background: var(--bg); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+  .about-text p {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.9;
+    margin-bottom: 1.5rem;
+  }
+  .about-text p strong { color: var(--text); font-weight: 500; }
+  .stack-label {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+  }
+  .tech-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+  .tech-item {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    padding: 10px 14px;
+    font-size: 11px;
+    color: var(--muted);
+    transition: all 0.2s;
+    cursor: none;
+  }
+  .tech-item:hover {
+    background: var(--bg3);
+    color: var(--accent);
+    border-color: rgba(56,191,255,0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(56,191,255,0.08);
+  }
+  .tech-item::before {
+    content: '> ';
+    color: var(--accent);
+  }
+ 
+  /* Projects */
+  .projects { background: var(--bg2); }
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+  }
+  .project-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s;
+    cursor: none;
+  }
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 0;
+    background: linear-gradient(180deg, var(--accent), var(--accent2));
+    transition: height 0.4s;
+  }
+  .project-card:hover { border-color: rgba(56,191,255,0.2); }
+  .project-card:hover::before { height: 100%; }
+  .project-card:first-child {
+    grid-column: span 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  .project-num {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 3px;
+    margin-bottom: 1.5rem;
+  }
+  .project-title {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+    line-height: 1;
+  }
+  .project-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 2rem;
+  }
+  .tag {
+    padding: 4px 10px;
+    background: transparent;
+    border: 1px solid var(--border);
+    font-size: 10px;
+    letter-spacing: 1px;
+    color: var(--muted);
+    border-radius: 2px;
+  }
+  .project-link {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: gap 0.2s;
+  }
+  .project-link:hover { gap: 16px; }
+  .project-visual {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    height: 240px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 4rem;
+    color: var(--border);
+    letter-spacing: 4px;
+    position: relative;
+    overflow: hidden;
+  }
+  .project-visual .code-bg {
+    position: absolute;
+    inset: 0;
+    padding: 1rem;
+    font-size: 10px;
+    color: #18202e;
+    line-height: 1.6;
+    overflow: hidden;
+    font-family: var(--font-body);
+    white-space: pre;
+  }
+  .project-visual .big-num {
+    position: relative;
+    z-index: 1;
+    color: #1a2235;
+    font-size: 6rem;
+  }
+ 
+  /* Experience */
+  .experience { background: var(--bg); }
+  .exp-list { display: flex; flex-direction: column; gap: 0; }
+  .exp-item {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 3rem;
+    padding: 2.5rem 0;
+    border-bottom: 1px solid var(--border);
+    transition: all 0.2s;
+    cursor: none;
+  }
+  .exp-item:hover { padding-left: 1rem; border-color: rgba(56,191,255,0.4); }
+  .exp-date {
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+  }
+  .exp-company {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 2px;
+  }
+  .exp-role {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    letter-spacing: 2px;
+    margin-bottom: 0.8rem;
+  }
+  .exp-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.8;
+    max-width: 620px;
+  }
+  .exp-desc ul {
+    margin-top: 0.5rem;
+    padding-left: 0;
+    list-style: none;
+  }
+  .exp-desc ul li::before {
+    content: '▸ ';
+    color: var(--accent);
+    font-size: 10px;
+  }
+ 
+  /* Awards */
+  .awards { background: var(--bg2); }
+  .award-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    border-left: 3px solid var(--accent);
+    box-shadow: -4px 0 20px rgba(56,191,255,0.08);
+  }
+  .award-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border: 1px solid rgba(56,191,255,0.3);
+    color: var(--accent);
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    border-radius: 2px;
+    background: rgba(56,191,255,0.05);
+  }
+  .award-title {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+  }
+  .award-sub {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+  }
+  .award-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.8;
+    max-width: 700px;
+  }
+ 
+  /* Contact */
+  .contact {
+    background: var(--bg);
+    text-align: center;
+    padding: 8rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .contact::before {
+    content: 'CONTACT';
+    position: absolute;
+    font-family: var(--font-display);
+    font-size: 20vw;
+    color: rgba(56,191,255,0.025);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+    letter-spacing: 1rem;
+    z-index: 0;
+  }
+  .contact-inner { position: relative; z-index: 1; }
+  .contact-label {
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+  }
+  .contact-heading {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 7vw, 6rem);
+    letter-spacing: 4px;
+    line-height: 1;
+    margin-bottom: 2rem;
+  }
+  .contact-sub {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 3rem;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.8;
+  }
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .contact-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border-radius: 2px;
+    transition: all 0.2s;
+  }
+  .contact-link:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 20px rgba(56,191,255,0.1);
+  }
+ 
+  /* Footer */
+  footer {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    padding: 2rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    position: relative;
+    z-index: 1;
+  }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--accent); }
+ 
+  /* Scroll animations */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s, transform 0.7s;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+ 
+  @media (max-width: 900px) {
+    nav { padding: 1.5rem 2rem; }
+    .nav-status { display: none; }
+    section { padding: 5rem 2rem; }
+    .hero { grid-template-columns: 1fr; padding: 2rem; padding-top: 100px; }
+    .hero-right { display: none; }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .project-card:first-child { grid-column: span 1; grid-template-columns: 1fr; }
+    .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+</style>
 </head>
 <body>
-    <header id="main-header">
-        <nav class="container">
-            <div class="logo">P<span>.</span></div>
-            <ul class="nav-links">
-                <li><a href="#about">About</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            <button class="cta-button">Hire Me</button>
-        </nav>
-    </header>
-
-    <main>
-        <section id="hero" class="container">
-            <div class="hero-content">
-                <span class="badge">Available for projects</span>
-                <h1>Creative <span>Designer</span> & Full-Stack Developer</h1>
-                <p>Hello, I'm Prem R Tawar. I craft immersive digital experiences that blend aesthetics with functionality. Turning complex problems into simple, beautiful, and intuitive designs.</p>
-                <div class="hero-btns">
-                    <a href="#projects" class="primary-btn">View My Work</a>
-                    <a href="#contact" class="secondary-btn">Let's Talk</a>
-                </div>
-            </div>
-            <div class="hero-visual">
-                <div class="glow-circle"></div>
-                <div class="glass-card">
-                    <div class="card-header">
-                        <div class="dot red"></div>
-                        <div class="dot yellow"></div>
-                        <div class="dot green"></div>
-                    </div>
-                    <div class="card-body">
-                        <pre><code><span class="keyword">const</span> <span class="variable">profile</span> = {
-  name: <span class="string">'Prem R Tawar'</span>,
-  role: <span class="string">'Developer'</span>,
-  skills: [<span class="string">'UI/UX'</span>, <span class="string">'React'</span>, <span class="string">'Node'</span>]
-};</code></pre>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="about" class="container">
-            <div class="section-title">
-                <h2>About Me</h2>
-                <div class="underline"></div>
-            </div>
-            <div class="about-grid">
-                <div class="about-text">
-                    <p>I am a passionate creator based in India, dedicated to bringing ideas to life through code and design. With a keen eye for detail and a love for minimal aesthetics, I strive to build applications that are not only powerful but also delightful to use.</p>
-                    <div class="stats">
-                        <div class="stat-item">
-                            <h3>5+</h3>
-                            <p>Projects Done</p>
-                        </div>
-                        <div class="stat-item">
-                            <h3>2+</h3>
-                            <p>Years Experience</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="about-skills">
-                    <div class="skill-tag">JavaScript</div>
-                    <div class="skill-tag">HTML/CSS</div>
-                    <div class="skill-tag">UI Design</div>
-                    <div class="skill-tag">Web Development</div>
-                    <div class="skill-tag">Vercel</div>
-                    <div class="skill-tag">Git</div>
-                </div>
-            </div>
-        </section>
-
-        <section id="projects" class="container">
-            <div class="section-title">
-                <h2>Featured Projects</h2>
-                <div class="underline"></div>
-            </div>
-            <div class="project-grid">
-                <!-- Project cards will be here -->
-                <div class="project-card">
-                    <div class="project-img-placeholder">
-                        <span>Project One</span>
-                    </div>
-                    <div class="project-info">
-                        <h3>Creative Canvas</h3>
-                        <p>A digital playground for generative art and interactive designs.</p>
-                        <div class="project-tags">
-                            <span>React</span>
-                            <span>Three.js</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-img-placeholder">
-                        <span>Project Two</span>
-                    </div>
-                    <div class="project-info">
-                        <h3>Lumina Dashboard</h3>
-                        <p>Next-gen analytics platform with focus on intuitive visualization.</p>
-                        <div class="project-tags">
-                            <span>Next.js</span>
-                            <span>Tailwind</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact" class="container">
-            <div class="contact-card">
-                <h2>Ready to start a project?</h2>
-                <p>I'm currently looking for new opportunities. Whether you have a question or just want to say hi, I'll try my best to get back to you!</p>
-                <a href="mailto:rkprem0518@gmail.com" class="cta-button large">Get In Touch</a>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2026 Prem R Tawar. All rights reserved.</p>
-            <div class="social-links">
-                <a href="#">GitHub</a>
-                <a href="#">Twitter</a>
-                <a href="#">LinkedIn</a>
-            </div>
+ 
+<div class="cursor" id="cursor"></div>
+ 
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">PT</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-status">
+    <div class="status-dot"></div>
+    Open to opportunities
+  </div>
+</nav>
+ 
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <p class="hero-tag">// Founder · Researcher · Builder</p>
+    <h1 class="hero-name">PREM<br><span>TAWAR</span></h1>
+    <p class="hero-bio">
+      CS undergrad obsessed with <strong>real-world problems</strong>. Co-founded <strong>NIL Healthcare</strong> to fix ₹26,000 Cr annual leakage in Indian health-insurance claims. Selected attendee, <strong>Y Combinator Startup School India 2026</strong>.
+    </p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-primary">View Projects →</a>
+      <a href="#contact" class="btn btn-secondary">Get in Touch</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-visual">
+      <div class="hero-ring"></div>
+      <div class="hero-ring-2"></div>
+      <div class="hero-center">BUILD</div>
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-num">4+</div>
+          <div class="stat-label">Projects</div>
         </div>
-    </footer>
-
-    <script src="script.js"></script>
+        <div class="stat">
+          <div class="stat-num">YC</div>
+          <div class="stat-label">Selected</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">Q3</div>
+          <div class="stat-label">Paper</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    Scroll to explore
+    <div class="scroll-line"></div>
+  </div>
+</section>
+ 
+<!-- ABOUT (Modified: removed university name, changed to "1st year CS student in Bangalore") -->
+<section class="about reveal" id="about">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <h2 class="section-title">ABOUT</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>
+        I'm a <strong>1st year CS student in Bangalore</strong> who believes that the best way to learn is to <strong>ship real products for real problems</strong>. I validated a ₹26,000 Cr healthcare gap by shadowing billing clerks, then built a full-stack platform in weeks.
+      </p>
+      <p>
+        I'm currently conducting <strong>independent NLP research</strong> — BERT-based sentiment classification of mental health app reviews — with a paper in preparation for Q3 2026. I'm keen to apply LLMs, state-space models, and interpretable ML to healthcare and fintech.
+      </p>
+      <p>
+        Outside of code, I draw inspiration from Andrej Karpathy's ideas on verifiable AI reasoning, and I'm always looking for problems where <strong>systems thinking meets domain depth</strong>.
+      </p>
+    </div>
+    <div class="about-stack">
+      <p class="stack-label">Tech Stack</p>
+      <div class="tech-grid">
+        <div class="tech-item">Python</div>
+        <div class="tech-item">Java</div>
+        <div class="tech-item">C</div>
+        <div class="tech-item">SQL</div>
+        <div class="tech-item">Flask</div>
+        <div class="tech-item">FastAPI</div>
+        <div class="tech-item">scikit-learn</div>
+        <div class="tech-item">BERT</div>
+        <div class="tech-item">SHAP</div>
+        <div class="tech-item">PostgreSQL</div>
+        <div class="tech-item">Redis</div>
+        <div class="tech-item">Docker</div>
+        <div class="tech-item">FHIR R4</div>
+        <div class="tech-item">Streamlit</div>
+        <div class="tech-item">D3.js</div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- PROJECTS -->
+<section class="projects reveal" id="projects">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <h2 class="section-title">PROJECTS</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="projects-grid">
+ 
+    <!-- Featured -->
+    <div class="project-card">
+      <div>
+        <p class="project-num">// FEATURED PROJECT</p>
+        <h3 class="project-title">NIL GATEWAY</h3>
+        <p class="project-desc">
+          Hospital Revenue Intelligence Platform. Indian hospitals lose an estimated ₹26,000 Cr/year to insurance claim leakage. NIL automates policy discovery, coverage estimation, ML risk auditing (Random Forest + Gradient Boosting), and NHCX-compliant FHIR R4 generation. Active pilot discussions with Natus Hospital (200 beds).
+        </p>
+        <div class="project-tags">
+          <span class="tag">Python</span>
+          <span class="tag">Flask</span>
+          <span class="tag">scikit-learn</span>
+          <span class="tag">FHIR R4</span>
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">Healthcare</span>
+        </div>
+        <a href="https://github.com/rkprem0518-gif/NIL-healthcare-mvp" target="_blank" class="project-link">View on GitHub →</a>
+      </div>
+      <div class="project-visual">
+        <div class="code-bg">class PolicyEngine:
+  def discover(self, abha_id):
+    schemes = self.db.query(
+      abha_id=abha_id,
+      status="active"
+    )
+    return self.rank(schemes)
+ 
+  def estimate_coverage(
+    self, policy, procedure
+  ):
+    # sub-limits, co-pay,
+    # room rent caps...
+    return CoverageReport()</div>
+        <span class="big-num">01</span>
+      </div>
+    </div>
+ 
+    <div class="project-card">
+      <p class="project-num">// 02</p>
+      <h3 class="project-title">ARBITRAX</h3>
+      <p class="project-desc">
+        AI-native fraud arbitration platform. Real-time fraud underwriting via behavioral telemetry, SHAP-based Explainable AI for audit-ready decisions, LLM-generated legal docs (Show Cause Notices, Reasoned Orders), and Human-in-the-Loop compliance interface. Fully RBI Master Directions compliant.
+      </p>
+      <div class="project-tags">
+        <span class="tag">FastAPI</span>
+        <span class="tag">SHAP</span>
+        <span class="tag">OpenAI API</span>
+        <span class="tag">Redis</span>
+        <span class="tag">Fintech</span>
+      </div>
+      <a href="https://github.com/rkprem0518-gif/arbitrax-mvp" target="_blank" class="project-link">View on GitHub →</a>
+    </div>
+ 
+    <div class="project-card">
+      <p class="project-num">// 03</p>
+      <h3 class="project-title">GSM</h3>
+      <p class="project-desc">
+        Git-State-Machine — verifiable courtroom record for multi-agent AI. Every agent thought is a commit, every disagreement is a branch, every consensus is sealed with a SHA-256 Merkle hash. Three parallel subagents (security, logic, tests) run in isolated git worktrees. Inspired by Andrej Karpathy.
+      </p>
+      <div class="project-tags">
+        <span class="tag">Python</span>
+        <span class="tag">Gemini 2.0</span>
+        <span class="tag">asyncio</span>
+        <span class="tag">D3.js</span>
+        <span class="tag">SHA-256</span>
+      </div>
+      <a href="https://github.com/rkprem0518-gif/Gsm_mvp_v2" target="_blank" class="project-link">View on GitHub →</a>
+    </div>
+ 
+    <div class="project-card" style="grid-column: span 2;">
+      <p class="project-num">// 04</p>
+      <h3 class="project-title">DEP-VULN-TRIAGE</h3>
+      <p class="project-desc">
+        High-fidelity OpenEnv benchmarking environment for evaluating AI agents in DevSecOps and Supply Chain Security — mirrors industry tools like Dependabot, Snyk, and npm audit. Ships a curated database of 40 real-world CVE records. Benchmarked against llama3-70b-8192: 1.00 normalised reward on Easy/Medium, 0.85 on Hard tasks — zero-shot.
+      </p>
+      <div class="project-tags">
+        <span class="tag">Python</span>
+        <span class="tag">Docker</span>
+        <span class="tag">OpenEnv</span>
+        <span class="tag">Groq API</span>
+        <span class="tag">DevSecOps</span>
+        <span class="tag">JavaScript</span>
+      </div>
+      <a href="https://github.com/rkprem0518-gif/vte_mvp" target="_blank" class="project-link">View on GitHub →</a>
+    </div>
+ 
+  </div>
+</section>
+ 
+<!-- EXPERIENCE (Modified: co-founder description changed, university name removed, date OCT 2025 — MAY 2029) -->
+<section class="experience reveal" id="experience">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <h2 class="section-title">EXPERIENCE</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="exp-list">
+    <div class="exp-item">
+      <div class="exp-meta">
+        <p class="exp-date">FEB 2026 — PRESENT</p>
+        <p class="exp-company">NIL HEALTHCARE</p>
+      </div>
+      <div class="exp-right">
+        <h3 class="exp-role">CO-FOUNDER</h3>
+        <p class="exp-desc">
+          Own product strategy, user research, full-stack development, and go-to-market. Validated ₹26,000 Cr problem space through primary research — surveyd accross multiple hopistal, consulted MDs, and moved to active pilot discussions within 6 weeks of first commit.
+        </p>
+      </div>
+    </div>
+    <div class="exp-item">
+      <div class="exp-meta">
+        <p class="exp-date">FEB 2026 — PRESENT</p>
+        <p class="exp-company">INDEPENDENT</p>
+      </div>
+      <div class="exp-right">
+        <h3 class="exp-role">INDEPENDENT RESEARCHER</h3>
+        <p class="exp-desc">
+          Ongoing research: BERT-based sentiment classification of mental health app user reviews, analysing patterns in how real users describe emotional outcomes. Paper in preparation; expected Q3 2026. Keen interest in applying LLMs, state-space models, and interpretable ML to healthcare and fintech.
+        </p>
+      </div>
+    </div>
+    <div class="exp-item">
+      <div class="exp-meta">
+        <p class="exp-date">OCT 2025 — MAY 2029</p>
+        <p class="exp-company">BANGALORE, INDIA</p>
+      </div>
+      <div class="exp-right">
+        <h3 class="exp-role">B.TECH, COMPUTER SCIENCE</h3>
+        <p class="exp-desc">
+          Building at the intersection of systems-level AI infrastructure, regulated domains (healthcare, fintech), and NLP research — while shipping real products alongside coursework.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- AWARDS -->
+<section class="awards reveal" id="awards">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <h2 class="section-title">RECOGNITION</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="award-card">
+    <div class="award-badge">April 2026 · Bengaluru</div>
+    <h3 class="award-title">Y COMBINATOR STARTUP SCHOOL INDIA 2026</h3>
+    <p class="award-sub">SELECTED ATTENDEE — 1 OF 2,000 HAND-PICKED PARTICIPANTS</p>
+    <p class="award-desc">
+      Selected for the first-ever in-person YC Startup School event in India — the world's most prestigious startup accelerator. Highly competitive, application-only selection reviewed directly by YC's team. Direct sessions with YC partners Jared Friedman and Jon Xu, and founders of major Indian unicorns including Meesho, Razorpay, and Groww. Access to thousands of dollars in AWS, Azure, OpenAI, and Anthropic credits.
+    </p>
+  </div>
+</section>
+ 
+<!-- CONTACT -->
+<section class="contact reveal" id="contact">
+  <div class="contact-inner">
+    <p class="contact-label">// Let's build something real</p>
+    <h2 class="contact-heading">GET IN<br>TOUCH</h2>
+    <p class="contact-sub">
+      Whether you have a hard problem in healthcare, fintech, or AI infrastructure — or just want to geek out about verifiable agent reasoning — I'm always up for it.
+    </p>
+    <div class="contact-links">
+      <a href="mailto:rkprem0518@gmail.com" class="contact-link">✉ Email Me</a>
+      <a href="https://github.com/rkprem0518-gif" target="_blank" class="contact-link">⌥ GitHub</a>
+      <a href="https://www.linkedin.com/in/prem-tawar-39306b3ba" target="_blank" class="contact-link">◈ LinkedIn</a>
+    </div>
+  </div>
+</section>
+ 
+<footer>
+  <span>© 2026 Prem Tawar. All rights reserved.</span>
+  <span>Built with obsession, not a template.</span>
+  <a href="#">Back to top ↑</a>
+</footer>
+ 
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+  });
+  document.querySelectorAll('a, button, .tech-item, .project-card, .exp-item, .award-card').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+  });
+ 
+  // Scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+ 
+  // Stagger tech items on reveal
+  const techGrid = document.querySelector('.tech-grid');
+  if (techGrid) {
+    const techObs = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) {
+        document.querySelectorAll('.tech-item').forEach((item, i) => {
+          item.style.opacity = '0';
+          item.style.transform = 'translateY(10px)';
+          item.style.transition = `opacity 0.4s ${i * 0.04}s, transform 0.4s ${i * 0.04}s, background 0.2s, color 0.2s, border-color 0.2s`;
+          setTimeout(() => {
+            item.style.opacity = '1';
+            item.style.transform = 'none';
+          }, 50 + i * 40);
+        });
+        techObs.unobserve(techGrid);
+      }
+    }, { threshold: 0.3 });
+    techObs.observe(techGrid);
+  }
+</script>
 </body>
 </html>
